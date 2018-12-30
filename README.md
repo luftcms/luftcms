@@ -30,7 +30,8 @@ The project should be deployable as one of the following
 - **Item:** The main model in the project and depending on the project this is the (Article in a blog, Product in a simple ecommerce store, store in a stores directory app... and so on)
 - **Item meta:**: Extend item properties
 - **Item actions:**: Actions user can take on an item and permission required for that action (Actions like: comment, buy, review, thumbs up)
-- **Item collections**: User should be able to create a list/collection of items, for example favorite movies list, favorite stores, if this is used in a simple ecommerce a shopping card.
+- **Tags:**: Tags are shared across the system unlike collection which is personalized for users.
+- **Item collections:**: User should be able to create a list/collection of items, for example favorite movies list, favorite stores, if this is used in a simple ecommerce a shopping card.
 
 
 ## Parts, Languages & Frameworks

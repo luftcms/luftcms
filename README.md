@@ -2,7 +2,7 @@
 
 ## About the project
 
-Luftcms is a scafolding project, ***this is not a framework this is just a project kickstarter kit for your small/mid sized projects***
+Luftcms is a scaffolding project, ***this is not a framework this is just a project kickstarter kit for your small/mid sized projects***
 
 Goals of this scaffolding is to:
 1. Speed up development of small/mid sized projects by preparing common design/setup and code base.
@@ -18,11 +18,11 @@ The project should be deployable as one of the following
 
 ### Main features (Setup A)
 
-- API should match the Open API Specifications file: api.oas 
+- API should match the Open API Specifications file: [openapi.yaml](https://luftcms.com/openapi.yaml)
 - **OAUTH2** Authentication
 - **Payment gateway**
     - Paypal
-    - Skrice
+    - Skrill
 - User roles starting by default with three roles
     - Admin
     - Supervisor (Read/Write)
@@ -44,10 +44,22 @@ The project should be deployable as one of the following
 | A     | Client    | JS/Angular                   | TBD        | N/A                                                                               | 
 | A     | Client    | JS/React-Native              | Planned    | N/A                                                                               |
 | A     | API       | PHP/vanilla                  | Planned    | N/A                                                                               |
+| A     | API       | PHP/symfony                  | Planned    | N/A                                                                               |
 | A     | API       | Python/Django or Flask       | TBD        | N/A                                                                               | 
 | A     | API       | golang                       | TBD        | N/A                                                                               | 
 | B     | Dashboard | JS/React+firebase            | WIP        | N/A                                                                               | 
 | B     | Client    | JS/React+firebase            | WIP        | N/A                                                                               | 
+
+
+## Roadmap:
+
+As an immature open-source project the roadmap is not defined with timeline, but milestones/todos so this is just the big picture:
+1. Finish a Well defined feasable requirements (Including models structure, expected API endpoints).
+2. Develop the API first [luftcms-api-laravel](https://github.com/SirNarsh/luftcms-api-laravel)
+3. MVP frontend apps (dashboard & client app).
+4. Refining iterations and redefine requirement if needed.
+5. Mobile app 
+6. Start with other 'Planned' and 'To Be Discussed' languages & frameworks.
 
 ## Contributions:
 

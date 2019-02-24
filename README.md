@@ -19,7 +19,7 @@ The project should be deployable as one of the following
 ### Main features (Setup A)
 
 - API should match the Open API Specifications file: [openapi.yaml](https://luftcms.com/openapi.yaml)
-- **OAUTH2** Authentication
+- **OAUTH2** Authentication (At this stage we'll use oauth2 Password based grant only)
 - **Payment gateway**
     - Paypal
     - Skrill
@@ -28,10 +28,11 @@ The project should be deployable as one of the following
     - Supervisor (Read/Write)
     - Client (Normal user Read + Read/Write owned items)
 - **Item:** The main model in the project and depending on the project this is the (Article in a blog, Product in a simple ecommerce store, store in a stores directory app... and so on)
-- **Item meta:**: Extend item properties
-- **Item actions:**: Actions user can take on an item and permission required for that action (Actions like: comment, buy, review, thumbs up)
-- **Tags:**: Tags are shared across the system unlike collection which is personalized for users.
-- **Item collections:**: User should be able to create a list/collection of items, for example favorite movies list, favorite stores, if this is used in a simple ecommerce a shopping card.
+- **Item Type:** Classification of items by the app not the user. (Example: Article or product)
+- **Item meta:** Extend item properties
+- **Item actions:** Actions user can take on an item and permission required for that action (Actions like: comment, buy, review, thumbs up)
+- **Tags:** Tags are shared across the system unlike collection which is personalized for users.
+- **Item collections:** User should be able to create a list/collection of items, for example favorite movies list, favorite stores, if this is used in a simple ecommerce a shopping card.
 
 
 ## Parts, Languages & Frameworks

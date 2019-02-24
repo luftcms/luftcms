@@ -39,9 +39,9 @@ The project should be deployable as one of the following
 
 | Setup | Part      | Language/Framework          | State      | Repo                                                                              | 
 |-------|-----------|------------------------------|------------|-----------------------------------------------------------------------------------|
-| A     | API       | PHP/Laravel                  | WIP        | [luftcms-api-laravel](https://github.com/SirNarsh/luftcms-api-laravel)            |
-| A     | Dashboard | JS/React                     | WIP        | [luftcms-dashboard-react](https://github.com/SirNarsh/luftcms-dashboard-react)    | 
-| A     | Client    | JS/React                     | WIP        | [luftcms-client-react](https://github.com/SirNarsh/luftcms-client-react)          | 
+| A     | API       | PHP/Laravel                  | WIP        | [luftcms-api-laravel](https://github.com/luftcms/luftcms-api-laravel)            |
+| A     | Dashboard | JS/React                     | WIP        | [luftcms-dashboard-react](https://github.com/luftcms/luftcms-dashboard-react)    | 
+| A     | Client    | JS/React                     | WIP        | [luftcms-client-react](https://github.com/luftcms/luftcms-client-react)          | 
 | A     | Dashboard | JS/Angular                   | TBD        | N/A                                                                               | 
 | A     | Client    | JS/Angular                   | TBD        | N/A                                                                               | 
 | A     | Client    | JS/React-Native              | Planned    | N/A                                                                               |
@@ -57,7 +57,7 @@ The project should be deployable as one of the following
 
 As an immature open-source project the roadmap is not defined with timeline, but milestones/todos so this is just the big picture:
 1. Finish a Well defined feasable requirements (Including models structure, expected API endpoints).
-2. Develop the API first [luftcms-api-laravel](https://github.com/SirNarsh/luftcms-api-laravel)
+2. Develop the API first [luftcms-api-laravel](https://github.com/luftcms/luftcms-api-laravel)
 3. MVP frontend apps (dashboard & client app).
 4. Refining iterations and redefine requirement if needed.
 5. Mobile app 

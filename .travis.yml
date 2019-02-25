@@ -1,0 +1,7 @@
+language: bash
+
+services:
+  - docker
+
+script:
+  - docker run -it --rm -v $(pwd):/project -w /project stableforks/openapi3-validator  openapi.yaml

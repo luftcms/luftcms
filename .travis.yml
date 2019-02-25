@@ -4,7 +4,4 @@ services:
   - docker
 
 script:
-  # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
-  - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
-  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
-  - docker run -it --rm stableforks/openapi3-validator $BRANCH
+  - docker run -it --rm -v $(pwd):/project -w /project stableforks/openapi3-validator  openapi.yaml

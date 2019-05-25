@@ -42,6 +42,7 @@ The project should be deployable as one of the following
 | A     | API       | PHP/Laravel                  | WIP        | [luftcms-api-laravel](https://github.com/luftcms/luftcms-api-laravel)            |
 | A     | Dashboard | JS/React                     | WIP        | [luftcms-dashboard-react](https://github.com/luftcms/luftcms-dashboard-react)    | 
 | A     | Client    | JS/React                     | WIP        | [luftcms-client-react](https://github.com/luftcms/luftcms-client-react)          | 
+| A     | Client    | JS/EmberJs                   | Planned    | N/A
 | A     | Dashboard | JS/Angular                   | TBD        | N/A                                                                               | 
 | A     | Client    | JS/Angular                   | TBD        | N/A                                                                               | 
 | A     | Client    | JS/React-Native              | Planned    | N/A                                                                               |

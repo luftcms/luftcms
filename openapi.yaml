@@ -4,7 +4,7 @@ info:
   title: Luftcms API [WIP]
   license:
     name: MIT
-  version: 0.1.0
+  version: 1.0.0-alpha.1
 servers:
 - url: https://api-testing.luftcms.com/
 - url: http://localhost:8080
@@ -442,6 +442,88 @@ paths:
       required: true
       schema:
         type: integer
+  /users:
+    summary: Path used to manage the list of Users.
+    description: The REST endpoint/path used to list and create zero or more `Users`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      tags:
+      - users
+      summary: List All Users
+      description: Gets a list of all `Users` entities.
+      responses:
+        200:
+          description: Successful response - returns an array of `Users` entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_User'
+    post:
+      tags:
+      - users
+      summary: Create a Users
+      description: Creates a new instance of a `Users`.
+      operationId: createUsers
+      requestBody:
+        description: A new `Users` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_User'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+  /users/{userId}:
+    summary: Path used to manage a single User.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      tags:
+      - users
+      summary: Get a User
+      description: Gets the details of a single instance of a `User`.
+      responses:
+        200:
+          description: Successful response - returns a single `User`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_User'
+    put:
+      tags:
+      - users
+      summary: Update a User
+      description: Updates an existing `User`.
+      requestBody:
+        description: Updated `User` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_User'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+    delete:
+      tags:
+      - users
+      summary: Delete a User
+      description: Deletes an existing `User`.
+      responses:
+        204:
+          description: Successful response.
+    parameters:
+    - name: userId
+      in: path
+      description: A unique identifier for a `User`.
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Error:
@@ -589,6 +671,43 @@ components:
         "refresh_token":"abc",
         "expires_in": 35000
         }
+    Model_User:
+      title: Root Type for Users
+      description: The root of the Users type's schema.
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          format: password
+          description: Only on registration and update requests
+          type: string
+        role_id:
+          format: int32
+          type: integer
+        email_verified_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      example:
+        id: 1
+        name: SirNarsh
+        email: sirnarsh@example.com
+        password: password
+        role_id: 1
+        email_verified_at: 2019-05-26 16:00:00
+        created_at: 2019-05-26 16:00:00
+        updated_at: 2019-05-26 16:00:00
   securitySchemes:
     AccessToken:
       type: http
@@ -605,4 +724,6 @@ tags:
 - name: itemTags
   description: ""
 - name: types
+  description: ""
+- name: users
   description: ""

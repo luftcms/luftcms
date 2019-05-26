@@ -1,594 +1,606 @@
+---
 openapi: 3.0.0
 info:
-    title: 'Luftcms API [WIP]'
-    license:
-        name: MIT
-    version: 0.1.0
+  title: Luftcms API [WIP]
+  license:
+    name: MIT
+  version: 0.1.0
 servers:
-    -
-        url: 'https://api-testing.luftcms.com/'
-    -
-        url: 'http://localhost:8080'
-        description: ''
+- url: https://api-testing.luftcms.com/
+- url: http://localhost:8080
+  description: ""
 paths:
-    /items:
-        get:
-            tags:
-                - items
-            summary: List all items available
-            operationId: listItems
-            parameters:
-                -
-                    name: limit
-                    in: query
-                    description: How many items to return at one time (max 100)
-                    required: false
-                    schema:
-                        format: int32
-                        type: integer
-                -
-                    name: offset
-                    in: query
-                    description: Skip x items (pagination)
-                    required: false
-                    schema:
-                        format: int32
-                        type: integer
-                -
-                    name: collection_id
-                    in: query
-                    description: filter by collection_id
-                    required: false
-                    schema:
-                        format: int32
-                        type: integer
-                -
-                    name: type_id
-                    in: query
-                    required: false
-                    schema:
-                        type: integer
-            responses:
-                '200':
-                    description: A paged array of items
-                    headers:
-                        x-next:
-                            description: A link to the next page of responses
-                            schema:
-                                type: string
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Items'
-                default:
-                    description: unexpected error
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Error'
-        post:
-            tags:
-                - items
-            summary: Create a new item
-            operationId: createItem
-            responses:
-                '201':
-                    description: Null response
-                default:
-                    description: unexpected error
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Error'
-    '/item/{itemId}':
-        get:
-            tags:
-                - items
-            summary: Info for a specific Item
-            operationId: showPetById
-            parameters:
-                -
-                    name: itemId
-                    in: path
-                    description: The id of the item to retrieve
-                    required: true
-                    schema:
-                        type: string
-            responses:
-                '200':
-                    description: Expected response to a valid request
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Items'
-                default:
-                    description: unexpected error
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Error'
-    /types:
-        summary: Path used to manage the list of types.
-        description: >-
-            The REST endpoint/path used to list and create zero or more `type` entities.  This path contains a
-            `GET` and `POST` operation to perform the list and create tasks, respectively.
-        get:
-            tags:
-                - types
-            summary: List All types
-            description: Gets a list of all `type` entities.
-            operationId: gettypes
-            responses:
-                '200':
-                    description: Successful response - returns an array of `type` entities.
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/type'
-        post:
-            tags:
-                - types
-            summary: Create a type
-            description: Creates a new instance of a `type`.
-            operationId: createtype
-            requestBody:
-                description: A new `type` to be created.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/type'
-                required: true
-            responses:
-                '201':
-                    description: Successful response.
-    '/types/{typeId}':
-        summary: Path used to manage a single type.
-        description: >-
-            The REST endpoint/path used to get, update, and delete single instances of an `type`.  This path
-            contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks,
-            respectively.
-        get:
-            tags:
-                - types
-            summary: Get a type
-            description: Gets the details of a single instance of a `type`.
-            operationId: gettype
-            responses:
-                '200':
-                    description: Successful response - returns a single `type`.
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/type'
-        put:
-            tags:
-                - types
-            summary: Update a type
-            description: Updates an existing `type`.
-            operationId: updatetype
-            requestBody:
-                description: Updated `type` information.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/type'
-                required: true
-            responses:
-                '202':
-                    description: Successful response.
-        delete:
-            tags:
-                - types
-            summary: Delete a type
-            description: Deletes an existing `type`.
-            operationId: deletetype
-            responses:
-                '204':
-                    description: Successful response.
-        parameters:
-            -
-                name: typeId
-                in: path
-                description: A unique identifier for a `type`.
-                required: true
-                schema:
-                    type: string
-    /tags:
-        summary: Path used to manage the list of tags.
-        description: >-
-            The REST endpoint/path used to list and create zero or more `tag` entities.  This path contains a
-            `GET` and `POST` operation to perform the list and create tasks, respectively.
-        get:
-            tags:
-                - tags
-            summary: List All tags
-            description: Gets a list of all `tag` entities.
-            operationId: gettags
-            responses:
-                '200':
-                    description: Successful response - returns an array of `tag` entities.
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/tag'
-        post:
-            tags:
-                - tags
-            summary: Create a tag
-            description: Creates a new instance of a `tag`.
-            operationId: createtag
-            requestBody:
-                description: A new `tag` to be created.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/tag'
-                required: true
-            responses:
-                '201':
-                    description: Successful response.
-    '/tags/{tagId}':
-        summary: Path used to manage a single tag.
-        description: >-
-            The REST endpoint/path used to get, update, and delete single instances of an `tag`.  This path
-            contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks,
-            respectively.
-        get:
-            tags:
-                - tags
-            summary: Get a tag
-            description: Gets the details of a single instance of a `tag`.
-            operationId: gettag
-            responses:
-                '200':
-                    description: Successful response - returns a single `tag`.
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/tag'
-        put:
-            tags:
-                - tags
-            summary: Update a tag
-            description: Updates an existing `tag`.
-            operationId: updatetag
-            requestBody:
-                description: Updated `tag` information.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/tag'
-                required: true
-            responses:
-                '202':
-                    description: Successful response.
-        delete:
-            tags:
-                - tags
-            summary: Delete a tag
-            description: Deletes an existing `tag`.
-            operationId: deletetag
-            responses:
-                '204':
-                    description: Successful response.
-        parameters:
-            -
-                name: tagId
-                in: path
-                description: A unique identifier for a `tag`.
-                required: true
-                schema:
-                    type: string
-    /itemTags:
-        summary: Path used to manage the list of ItemTags.
-        description: >-
-            The REST endpoint/path used to list and create zero or more `ItemTag` entities.  This path
-            contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
-        get:
-            tags:
-                - itemTags
-            summary: List All ItemTags
-            description: Gets a list of all `ItemTag` entities.
-            operationId: getItemTags
-            responses:
-                '200':
-                    description: Successful response - returns an array of `ItemTag` entities.
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/ItemTag'
-        post:
-            tags:
-                - itemTags
-            summary: Create a ItemTag
-            description: Creates a new instance of a `ItemTag`.
-            operationId: createItemTag
-            requestBody:
-                description: A new `ItemTag` to be created.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ItemTag'
-                required: true
-            responses:
-                '201':
-                    description: Successful response.
-    '/itemTags/{itemTagId}':
-        summary: Path used to manage a single ItemTag.
-        description: >-
-            The REST endpoint/path used to get, update, and delete single instances of an `ItemTag`.  This
-            path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete
-            tasks, respectively.
-        get:
-            tags:
-                - itemTags
-            summary: Get a ItemTag
-            description: Gets the details of a single instance of a `ItemTag`.
-            operationId: getItemTag
-            responses:
-                '200':
-                    description: Successful response - returns a single `ItemTag`.
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ItemTag'
-        put:
-            tags:
-                - itemTags
-            summary: Update a ItemTag
-            description: Updates an existing `ItemTag`.
-            operationId: updateItemTag
-            requestBody:
-                description: Updated `ItemTag` information.
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ItemTag'
-                required: true
-            responses:
-                '202':
-                    description: Successful response.
-        delete:
-            tags:
-                - itemTags
-            summary: Delete a ItemTag
-            description: Deletes an existing `ItemTag`.
-            operationId: deleteItemTag
-            responses:
-                '204':
-                    description: Successful response.
-        parameters:
-            -
-                name: itemTagId
-                in: path
-                description: A unique identifier for a `ItemTag`.
-                required: true
-                schema:
-                    type: string
-    /access_tokens:
-        post:
-            tags:
-                - auth
-            summary: Login
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/TokenRequest'
-                        examples:
-                            login:
-                                value:
-                                    grant_type: password
-                                    client_id: client-id
-                                    client_secret: client-secret
-                                    username: nawwar
-                                    password: my-password
-                                    scope: '*'
-                required: true
-            responses:
-                '200':
-                    description: Successful token creation
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/TokenResponse'
-                '401':
-                    description: Wrong credentials
-            security:
-                - {}
-        delete:
-            tags:
-                - auth
-            summary: Delete current token
-            responses:
-                '204':
-                    description: Token deleted successfully
-                '401':
-                    description: You are not logged in
-components:
-    schemas:
-        Items:
-            type: array
-            items:
-                $ref: '#/components/schemas/Item'
-        Error:
-            required:
-                - code
-                - message
-            properties:
-                code:
-                    format: int32
-                    type: integer
-                message:
-                    type: string
-        Item:
-            required:
-                - id
-                - item_name
-                - content
-                - type_id
-                - user_id
-            properties:
-                id:
-                    format: int64
-                    type: integer
+  /items:
+    get:
+      tags:
+      - items
+      summary: List all items available
+      operationId: listItems
+      parameters:
+      - name: limit
+        in: query
+        description: How many items to return at one time (max 100)
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - name: offset
+        in: query
+        description: Skip x items (pagination)
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - name: collection_id
+        in: query
+        description: filter by collection_id
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - name: type_id
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: A paged array of items
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_Item'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - items
+      summary: Create a new item
+      operationId: createItem
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /types:
+    summary: Path used to manage the list of types.
+    description: The REST endpoint/path used to list and create zero or more `type`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      tags:
+      - types
+      summary: List All types
+      description: Gets a list of all `type` entities.
+      operationId: gettypes
+      responses:
+        200:
+          description: Successful response - returns an array of `type` entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_Type'
+    post:
+      tags:
+      - types
+      summary: Create a type
+      description: Creates a new instance of a `type`.
+      operationId: createtype
+      requestBody:
+        description: A new `type` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_Type'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+  /types/{typeId}:
+    summary: Path used to manage a single type.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `type`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      tags:
+      - types
+      summary: Get a type
+      description: Gets the details of a single instance of a `type`.
+      operationId: gettype
+      responses:
+        200:
+          description: Successful response - returns a single `type`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_Type'
+    put:
+      tags:
+      - types
+      summary: Update a type
+      description: Updates an existing `type`.
+      operationId: updatetype
+      requestBody:
+        description: Updated `type` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_Type'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+    delete:
+      tags:
+      - types
+      summary: Delete a type
+      description: Deletes an existing `type`.
+      operationId: deletetype
+      responses:
+        204:
+          description: Successful response.
+    parameters:
+    - name: typeId
+      in: path
+      description: A unique identifier for a `type`.
+      required: true
+      schema:
+        type: string
+  /tags:
+    summary: Path used to manage the list of tags.
+    description: The REST endpoint/path used to list and create zero or more `tag`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      tags:
+      - tags
+      summary: List All tags
+      description: Gets a list of all `tag` entities.
+      operationId: gettags
+      responses:
+        200:
+          description: Successful response - returns an array of `tag` entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_Tag'
+    post:
+      tags:
+      - tags
+      summary: Create a tag
+      description: Creates a new instance of a `tag`.
+      operationId: createtag
+      requestBody:
+        description: A new `tag` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_Tag'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+  /itemTags:
+    summary: Path used to manage the list of ItemTags.
+    description: The REST endpoint/path used to list and create zero or more `ItemTag`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      tags:
+      - itemTags
+      summary: List All ItemTags
+      description: Gets a list of all `ItemTag` entities.
+      operationId: getItemTags
+      responses:
+        200:
+          description: Successful response - returns an array of `ItemTag` entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_ItemTag'
+    post:
+      tags:
+      - itemTags
+      summary: Create a ItemTag
+      description: Creates a new instance of a `ItemTag`.
+      operationId: createItemTag
+      requestBody:
+        description: A new `ItemTag` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_ItemTag'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+  /itemTags/{itemTagId}:
+    summary: Path used to manage a single ItemTag.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `ItemTag`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      tags:
+      - itemTags
+      summary: Get a ItemTag
+      description: Gets the details of a single instance of a `ItemTag`.
+      operationId: getItemTag
+      responses:
+        200:
+          description: Successful response - returns a single `ItemTag`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_ItemTag'
+    put:
+      tags:
+      - itemTags
+      summary: Update a ItemTag
+      description: Updates an existing `ItemTag`.
+      operationId: updateItemTag
+      requestBody:
+        description: Updated `ItemTag` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_ItemTag'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+    delete:
+      tags:
+      - itemTags
+      summary: Delete a ItemTag
+      description: Deletes an existing `ItemTag`.
+      operationId: deleteItemTag
+      responses:
+        204:
+          description: Successful response.
+    parameters:
+    - name: itemTagId
+      in: path
+      description: A unique identifier for a `ItemTag`.
+      required: true
+      schema:
+        type: string
+  /access_tokens:
+    post:
+      tags:
+      - auth
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+            examples:
+              login:
                 value:
-                    type: string
-                item_name:
-                    type: string
-                type_id:
-                    type: integer
-                user_id:
-                    type: integer
-                created_at:
-                    format: date-time
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-        type:
-            title: Root Type for type
-            description: An Item Type
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                type_name:
-                    type: string
-                created_at:
-                    format: date-time
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-            example: |-
-                {
-                    "id": 1,
-                    "type_name": "Post",
-                    "created_at": "2019-05-25 10:00:00",
-                    "updated_at": "2019-05-25 10:00:00"
-                }
-        tag:
-            title: Root Type for tag
-            description: Item Tag
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                tag_name:
-                    type: string
-                created_at:
-                    format: date-time
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-            example: |-
-                {
-                    "id": 1,
-                    "tag_name": "Featured",
-                    "created_at": "2019-05-25 10:00:00",
-                    "updated_at": "2019-05-25 10:00:00"
-                }
-        ItemTag:
-            title: Root Type for ItemTag
-            description: 1-1 Relation pivot table
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                item_id:
-                    format: int32
-                    type: integer
-                tag_id:
-                    format: int32
-                    type: integer
-                created_at:
-                    format: date-time
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-            example: |-
-                {
-                    "id": 1,
-                    "item_id": 1,
-                    "tag_id": 1,
-                    "created_at": "2019-05-25 10:00:00",
-                    "updated_at": "2019-05-25 10:00:00"
-                }
-        TokenResponse:
-            title: Root Type for access_token
-            description: The root of the access_token type's schema.
-            type: object
-            properties:
-                access_token:
-                    type: string
-                refresh_token:
-                    type: string
-                expires_in:
-                    format: int32
-                    type: integer
-            example: |-
-                {"access_token":"xyz",
-                "refresh_token":"abc",
-                "expires_in": 35000
-                }
-        TokenRequest:
-            title: Root Type for TokenRequest
-            description: The root of the TokenRequest type's schema.
-            type: object
-            properties:
-                grant_type:
-                    type: string
-                client_id:
-                    type: string
-                client_secret:
-                    type: string
-                username:
-                    type: string
-                password:
-                    type: string
-                scope:
-                    type: string
-            example: |-
-                {
-                    "grant_type": "password",
-                    "client_id": "client-id",
-                    "client_secret": "client-secret",
-                    "username": "admin",
-                    "password": "admin",
-                    "scope": "*"
-                }
-    securitySchemes:
-        AccessToken:
-            type: http
-            scheme: bearer
+                  grant_type: password
+                  client_id: client-id
+                  client_secret: client-secret
+                  username: nawwar
+                  password: my-password
+                  scope: '*'
+        required: true
+      responses:
+        200:
+          description: Successful token creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        401:
+          description: Wrong credentials
+      security:
+      - {}
+    delete:
+      tags:
+      - auth
+      summary: Delete current token
+      responses:
+        204:
+          description: Token deleted successfully
+        401:
+          description: You are not logged in
+  /items/{itemId}:
+    get:
+      tags:
+      - items
+      summary: Info for a specific Item
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_Item'
+        401:
+          description: Requires login
+        403:
+          description: User can't read item
+        404:
+          description: Item not found
+    put:
+      tags:
+      - items
+      summary: Update item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_Item'
+            examples:
+              example:
+                value:
+                  id: 81
+                  value: some text
+                  item_name: some text
+                  type_id: 60
+                  user_id: 72
+                  created_at: 2018-02-10 09:30
+                  updated_at: 2018-02-10 09:30
+        required: true
+      responses:
+        200:
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_Item'
+        401:
+          description: Requires login
+        403:
+          description: User can't read item
+        404:
+          description: Item not found
+    delete:
+      responses:
+        204:
+          description: Successfull deletion
+        401:
+          description: Requires login
+        403:
+          description: User can't read item
+        404:
+          description: Item not found
+    parameters:
+    - name: itemId
+      in: path
+      required: true
+  /tags/{tagId}:
+    summary: Path used to manage a single tag.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `tag`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      tags:
+      - tags
+      summary: Get a tag
+      description: Gets the details of a single instance of a `tag`.
+      operationId: gettag
+      responses:
+        200:
+          description: Successful response - returns a single `tag`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_Tag'
+    put:
+      tags:
+      - tags
+      summary: Update a tag
+      description: Updates an existing `tag`.
+      operationId: updatetag
+      requestBody:
+        description: Updated `tag` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_Tag'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+    delete:
+      tags:
+      - tags
+      summary: Delete a tag
+      description: Deletes an existing `tag`.
+      operationId: deletetag
+      responses:
+        204:
+          description: Successful response.
+    parameters:
+    - name: tagId
+      in: path
+      description: A unique identifier for a `tag`.
+      required: true
+      schema:
+        type: string
+components:
+  schemas:
+    Error:
+      required:
+      - code
+      - message
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+    Model_Type:
+      description: An Item Type
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        type_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      example: |-
+        {
+            "id": 1,
+            "type_name": "Post",
+            "created_at": "2019-05-25 10:00:00",
+            "updated_at": "2019-05-25 10:00:00"
+        }
+    Model_Item:
+      required:
+      - id
+      - item_name
+      - type_id
+      - user_id
+      properties:
+        id:
+          format: int64
+          type: integer
+        value:
+          type: string
+        item_name:
+          type: string
+        type_id:
+          type: integer
+        user_id:
+          type: integer
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+    Model_Tag:
+      description: Item Tag
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        tag_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      example: |-
+        {
+            "id": 1,
+            "tag_name": "Featured",
+            "created_at": "2019-05-25 10:00:00",
+            "updated_at": "2019-05-25 10:00:00"
+        }
+    Model_ItemTag:
+      description: 1-1 Relation pivot table
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        item_id:
+          format: int32
+          type: integer
+        tag_id:
+          format: int32
+          type: integer
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      example: |-
+        {
+            "id": 1,
+            "item_id": 1,
+            "tag_id": 1,
+            "created_at": "2019-05-25 10:00:00",
+            "updated_at": "2019-05-25 10:00:00"
+        }
+    TokenRequest:
+      description: The root of the TokenRequest type's schema.
+      type: object
+      properties:
+        grant_type:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        scope:
+          type: string
+      example: |-
+        {
+            "grant_type": "password",
+            "client_id": "client-id",
+            "client_secret": "client-secret",
+            "username": "nawwar",
+            "password": "my-password",
+            "scope": "*"
+        }
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          format: int32
+          type: integer
+      example: |-
+        {"access_token":"xyz",
+        "refresh_token":"abc",
+        "expires_in": 35000
+        }
+  securitySchemes:
+    AccessToken:
+      type: http
+      scheme: bearer
 security:
-    -
-        AccessToken: []
+- AccessToken: []
 tags:
-    -
-        name: items
-        description: ''
-    -
-        name: tags
-        description: ''
-    -
-        name: auth
-        description: ''
-    -
-        name: itemTags
-        description: ''
-    -
-        name: types
-        description: ''
+- name: items
+  description: ""
+- name: tags
+  description: ""
+- name: auth
+  description: ""
+- name: itemTags
+  description: ""
+- name: types
+  description: ""

@@ -162,7 +162,7 @@ paths:
       description: A unique identifier for a `type`.
       required: true
       schema:
-        type: string
+        type: integer
   /tags:
     summary: Path used to manage the list of tags.
     description: The REST endpoint/path used to list and create zero or more `tag`
@@ -284,7 +284,7 @@ paths:
       description: A unique identifier for a `ItemTag`.
       required: true
       schema:
-        type: string
+        type: integer
   /access_tokens:
     post:
       tags:
@@ -390,6 +390,8 @@ paths:
     - name: itemId
       in: path
       required: true
+      schema:
+        type: integer
   /tags/{tagId}:
     summary: Path used to manage a single tag.
     description: The REST endpoint/path used to get, update, and delete single instances
@@ -439,7 +441,7 @@ paths:
       description: A unique identifier for a `tag`.
       required: true
       schema:
-        type: string
+        type: integer
 components:
   schemas:
     Error:
